@@ -1,4 +1,4 @@
-# Android device tree for alps oppo6765 (oppo6765)
+# Android device tree for OPPO A16 (OP4F97)
 
 ```
 #

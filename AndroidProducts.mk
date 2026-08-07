@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_oppo6765.mk
+    $(LOCAL_DIR)/omni_OP4F97.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_oppo6765-user \
-    omni_oppo6765-userdebug \
-    omni_oppo6765-eng
+    omni_OP4F97-user \
+    omni_OP4F97-userdebug \
+    omni_OP4F97-eng

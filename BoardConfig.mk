@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/alps/oppo6765
+DEVICE_PATH := device/oppo/OP4F97
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -29,7 +29,7 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 DEXPREOPT_GENERATE_APEX_IMAGE := true
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := oppo6765
+TARGET_BOOTLOADER_BOARD_NAME := OP4F97
 TARGET_NO_BOOTLOADER := true
 
 # Display
@@ -49,7 +49,7 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 TARGET_KERNEL_CONFIG := oppo6765_defconfig
-TARGET_KERNEL_SOURCE := kernel/alps/oppo6765
+TARGET_KERNEL_SOURCE := kernel/alps/OP4F97
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
