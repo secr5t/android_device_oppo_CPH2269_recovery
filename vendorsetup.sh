@@ -4,7 +4,3 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
-add_lunch_combo twrp_OP4F97-user
-add_lunch_combo twrp_OP4F97-userdebug
-add_lunch_combo twrp_OP4F97-eng

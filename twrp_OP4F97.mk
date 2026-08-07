@@ -16,7 +16,7 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 $(call inherit-product, device/oppo/OP4F97/device.mk)
 
 PRODUCT_DEVICE := OP4F97
-PRODUCT_NAME := omni_OP4F97
+PRODUCT_NAME := twrp_OP4F97
 PRODUCT_BRAND := oppo
 PRODUCT_MODEL := OPPO A16
 PRODUCT_MANUFACTURER := OP4F97
