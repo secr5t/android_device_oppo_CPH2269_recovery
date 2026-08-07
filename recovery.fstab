@@ -15,7 +15,7 @@
 /vbmeta_system            emmc     /dev/block/by-name/vbmeta_system          flags=display=vbmeta_system
 /metadata                 ext4     /dev/block/by-name/md_udc                 flags=display=metadata
 /cache                    ext4     /dev/block/by-name/cache                  flags=display=cache
-/data                     f2fs     /dev/block/by-name/userdata               flags=display=data
+/data                     ext4     /dev/block/by-name/userdata               flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption;check;formattable;backup=1;filemanaged
 /mnt/vendor/protect_f     ext4     /dev/block/by-name/protect1               flags=display=protect_f
 /mnt/vendor/protect_s     ext4     /dev/block/by-name/protect2               flags=display=protect_s
 /mnt/vendor/nvdata        ext4     /dev/block/by-name/nvdata                 flags=display=nvdata
@@ -55,8 +55,8 @@ auto                      vfat     /devices/platform/11200000.usb3_xhci*     fla
 /dtbo                     emmc     /dev/block/by-name/dtbo                   flags=display=dtbo
 /otp                      emmc     /dev/block/by-name/otp                    flags=display=otp
 /custom                   ext4     /dev/block/by-name/odm                    flags=display=custom
-/external_sd              vfat     /dev/block/mmcblk1p1                      flags=display=external_sd
-/usb_otg                  vfat     /dev/block/sda1                           flags=display=usb_otg
+/external_sd              auto     /dev/block/mmcblk1p1  /dev/block/mmcblk1  flags=display="Micro SDcard";storage;wipeingui;removable
+/usb_otg                  auto     /dev/block/sda1       /dev/block/sda      flags=display="USB-OTG";storage;wipeingui;removable
 /vbmeta                   emmc     /dev/block/by-name/vbmeta                 flags=display=vbmeta
 /reserve2                 emmc     /dev/block/by-name/reserve2               flags=display=reserve2
 /opporeserve              ext4     /dev/block/by-name/opporeserve2           flags=display=opporeserve
