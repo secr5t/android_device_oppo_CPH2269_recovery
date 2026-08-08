@@ -49,6 +49,9 @@ jobs:
                 
     - name: Clean-up
       uses: rokibhasansagar/slimhub_actions@main
+      
+    - name: Clean build dir
+      run: rm -rf OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}
 
     - name: Swap Space
       uses: pierotofy/set-swap-space@master
