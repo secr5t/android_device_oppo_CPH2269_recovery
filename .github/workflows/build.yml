@@ -35,19 +35,6 @@ on:
         default: 'recovery'
         type: choice
         options: [boot, recovery, vendorboot]
-      MAINTAINER_NAME:
-        description: 'Maintainer name'
-        required: false
-        default: 'secr5t'
-      APPLY_PATCHES:
-        description: 'Apply custom source patches'
-        type: boolean
-        required: true
-        default: false
-      PATCHES_FOLDER:
-        description: 'Name of folder containing custom source patches (must be inside the device tree)'
-        required: true
-        default: 'patches'
 
 jobs:
   build:
@@ -119,38 +106,6 @@ jobs:
       run: |
         echo "BUILD_DATE=$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
 
-    - name: Apply source patches
-      if: github.event.inputs.APPLY_PATCHES == 'true'
-      run: |
-        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/bootable/recovery
-        PATCH_DIR="../../${{ inputs.DEVICE_PATH }}/${{ inputs.PATCHES_FOLDER }}"
-        HAS_PATCHES="false"
-
-        if [ -d "$PATCH_DIR" ]; then
-          echo "Applying patches from $PATCH_DIR"
-          for patch in $PATCH_DIR/*.patch; do
-            [ -f "$patch" ] || continue
-            echo "Applying $patch"
-            git apply "$patch" || {
-              echo "git apply failed, trying fallback..."
-              git apply --reject --whitespace=fix "$patch" || exit 1
-            }
-            HAS_PATCHES="true"
-          done
-        else
-          echo "Specified patches directory not found: $PATCH_DIR"
-        fi
-
-        echo "HAS_PATCHES=$HAS_PATCHES" >> $GITHUB_ENV
-
-    - name: Set Maintainer Info
-      run: |
-        if [ "${{ github.actor }}" = "TheGamerKing561" ] && [ "${{ inputs.MAINTAINER_NAME }}" == "" ]; then
-          echo "OF_MAINTAINER=@TheGamerKing on XDA" >> $GITHUB_ENV
-        elif ["${{ inputs.MAINTAINER_NAME }}" != ""]; then
-          echo "OF_MAINTAINER=${{ inputs.MAINTAINER_NAME }}" >> $GITHUB_ENV
-        fi
-        
     - name: Building OrangeFox
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
@@ -220,10 +175,13 @@ jobs:
           
         prerelease: true
         
-    - name: Send Built Image to Telegram
+    - name: Send Built File to Telegram
       run: |
-        FILE_PATH=OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/OrangeFox*.img
-        curl -F "chat_id=4452787333" \
-             -F "document=@${FILE_PATH}" \
-             https://api.telegram.org/bot${{ secrets.bot_token }}/sendDocument
-         
+        OUT_DIR="${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}"
+        FILE=$(find "$OUT_DIR" -maxdepth 1 -type f -name "OrangeFox*.img" | head -n 1)
+
+        if [ -n "$FILE" ]; then
+          curl -s -F "chat_id=4452787333" \
+               -F "document=@${FILE}" \
+               "https://api.telegram.org/bot${{ secrets.bot_token }}/sendDocument"
+        fi
