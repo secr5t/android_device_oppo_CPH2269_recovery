@@ -12,23 +12,23 @@ on:
       DEVICE_TREE:
         description: 'OrangeFox Device Tree'
         required: true
-        default: 'https://github.com/secr5t/android_device_oppo_CPH2269_recovery/'
+        default: 'https://github.com/secr5t/device_oppo_CPH2269/'
       DEVICE_TREE_BRANCH:
         description: 'OrangeFox Device Tree Branch'
         required: true
-        default: 'main'
+        default: 'fox-12.1'
       DEVICE_PATH:
         description: 'Device Tree Path'
         required: true
-        default: 'device/oppo/OP4F97'
+        default: 'device/oppo/CPH2269'
       DEVICE_NAME:
         description: 'Device Codename'
         required: true
-        default: 'OP4F97'
+        default: 'CPH2269'
       MAKEFILE_NAME:
         description: 'Makefile Name (excluding .mk extension, Example: twrp_codename)'
         required: true
-        default: 'twrp_OP4F97'
+        default: 'twrp_CPH2269'
       BUILD_TARGET:
         description: 'Build Target'
         required: true
