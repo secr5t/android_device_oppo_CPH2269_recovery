@@ -221,9 +221,9 @@ jobs:
         prerelease: true
         
     - name: Send Built Image to Telegram
-  run: |
-    FILE_PATH=OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/OrangeFox*.img
-    curl -F "chat_id=4452787333" \
-         -F "document=@${FILE_PATH}" \
-         https://api.telegram.org/bot${{ secrets.bot_token }}/sendDocument
+      run: |
+        FILE_PATH=OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/OrangeFox*.img
+        curl -F "chat_id=4452787333" \
+             -F "document=@${FILE_PATH}" \
+             https://api.telegram.org/bot${{ secrets.bot_token }}/sendDocument
          
