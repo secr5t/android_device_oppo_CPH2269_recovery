@@ -1,0 +1,38 @@
+# OrangeFox recovery fstab for OPPO OP4F97 (MT6765 / Android 11 dynamic partitions)
+# Mount points follow the first-stage fstab shipped by the OEM.
+
+# Dynamic (logical) partitions.
+system                                   /system    ext4  ro                                                    wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,
+vendor                                   /vendor    ext4  ro                                                    wait,avb,logical,first_stage_mount,
+product                                  /product   ext4  ro                                                    wait,avb,logical,first_stage_mount,
+odm                                      /odm       ext4  ro                                                    wait,logical,first_stage_mount,nofail,
+my_product                               /my_product ext4 ro                                                    wait,logical,first_stage_mount,nofail,
+
+# Storage and crypto.
+# userdata is f2fs with FBE (v1/v2). keydirectory matches vold metadata.
+/dev/block/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,reserve_root=134217,resgid=1065 wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
+# userdata ext4 alternate (older builds / non-f2fs)
+/dev/block/by-name/userdata /data ext4 noatime,nosuid,nodev,noauto_da_alloc,discard wait,check,formattable,quota,latemount,resize,reservedsize=128m
+
+# metadata first stage
+/dev/block/by-name/md_udc /metadata ext4 noatime,nosuid,nodev,discard wait,formattable,first_stage_mount
+/dev/block/by-name/cache  /cache   ext4 noatime,nosuid,nodev,noauto_da_alloc,discard wait,check,formattable,first_stage_mount
+
+# Misc / board partitions.
+/dev/block/by-name/para      /misc      emmc defaults defaults
+/dev/block/by-name/boot      /boot      emmc defaults defaults
+/dev/block/by-name/recovery  /recovery  emmc defaults defaults
+/dev/block/by-name/logo      /logo      emmc defaults defaults
+/dev/block/by-name/expdb     /expdb     emmc defaults defaults
+/dev/block/by-name/seccfg    /seccfg    emmc defaults defaults
+/dev/block/by-name/vbmeta    /vbmeta    emmc defaults defaults
+/dev/block/by-name/nvram     /nvram     emmc defaults defaults
+/dev/block/by-name/proinfo   /proinfo   emmc defaults defaults
+
+# TEE raw partitions exposed to TWRP.
+/dev/block/by-name/tee1   /tee1   emmc defaults defaults
+/dev/block/by-name/tee2   /tee2   emmc defaults defaults
+
+# SD card and OTG.
+/dev/block/mmcblk1p1 /external_sd vfat nosuid,nodev defaults
+/dev/block/sda1      /usb_otg     vfat nosuid,nodev defaults
